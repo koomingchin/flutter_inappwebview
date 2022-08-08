@@ -170,8 +170,6 @@ final public class InAppWebView extends InputAwareWebView implements InAppWebVie
                       List<UserScript> userScripts) {
     super(context, containerView, options.useHybridComposition);
     
-    
-    enableSlowWholeDocumentDraw();
     this.plugin = plugin;
     this.channel = channel;
     this.id = id;
