@@ -578,9 +578,9 @@ final public class InAppWebView extends InputAwareWebView implements InAppWebVie
       public void run() {
         try {
           Bitmap screenshotBitmap = Bitmap.createBitmap(getMeasuredWidth(), 3000, Bitmap.Config.ARGB_8888);
-          Canvas c = new Canvas(screenshotBitmap);
+          //Canvas c = new Canvas(screenshotBitmap);
           //c.translate(-getScrollX(), -getScrollY());
-          draw(c);
+          //draw(c);
 
           ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
           Bitmap.CompressFormat compressFormat = Bitmap.CompressFormat.PNG;
