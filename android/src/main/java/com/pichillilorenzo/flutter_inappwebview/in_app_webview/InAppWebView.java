@@ -620,7 +620,7 @@ final public class InAppWebView extends InputAwareWebView implements InAppWebVie
 
           screenshotBitmap.compress(
                   compressFormat,
-                  quality,
+                  5,
                   byteArrayOutputStream);
 
           try {
