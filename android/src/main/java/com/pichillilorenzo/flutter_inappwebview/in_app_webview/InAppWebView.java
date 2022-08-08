@@ -190,7 +190,6 @@ final public class InAppWebView extends InputAwareWebView implements InAppWebVie
 
     inAppWebViewChromeClient = new InAppWebViewChromeClient(plugin, channel, inAppBrowserDelegate);
     setWebChromeClient(inAppWebViewChromeClient);
-    enableSlowWholeDocumentDraw();
 
     inAppWebViewClient = new InAppWebViewClient(channel, inAppBrowserDelegate);
     setWebViewClient(inAppWebViewClient);
@@ -582,8 +581,6 @@ final public class InAppWebView extends InputAwareWebView implements InAppWebVie
           Bitmap screenshotBitmap = Bitmap.createBitmap(getMeasuredWidth(), 3000, Bitmap.Config.ARGB_8888);
           Canvas c = new Canvas(screenshotBitmap);
           //c.translate(-getScrollX(), -getScrollY());
-          Paint paint = new Paint();
-          c.drawBitmap(screenshotBitmap, 0, 3000, paint);
           draw(c);
 
           ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
