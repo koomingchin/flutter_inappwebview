@@ -74,6 +74,9 @@ public class InAppBrowserActivity extends AppCompatActivity implements InAppBrow
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    
+    
+    WebView.enableSlowWholeDocumentDraw();
 
     Bundle b = getIntent().getExtras();
     if (b == null) return;
@@ -102,7 +105,6 @@ public class InAppBrowserActivity extends AppCompatActivity implements InAppBrow
     pullToRefreshLayout.options = pullToRefreshOptions;
     pullToRefreshLayout.prepare();
 
-    WebView.enableSlowWholeDocumentDraw();
     webView = findViewById(R.id.webView);
     webView.windowId = windowId;
     webView.inAppBrowserDelegate = this;
