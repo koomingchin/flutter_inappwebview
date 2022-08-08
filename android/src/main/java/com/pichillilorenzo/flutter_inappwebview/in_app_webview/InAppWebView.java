@@ -577,7 +577,7 @@ final public class InAppWebView extends InputAwareWebView implements InAppWebVie
       @Override
       public void run() {
         try {
-          Bitmap screenshotBitmap = Bitmap.createBitmap(getMeasuredWidth(), getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+          Bitmap screenshotBitmap = Bitmap.createBitmap(getMeasuredWidth(), 1000, Bitmap.Config.ARGB_8888);
           Canvas c = new Canvas(screenshotBitmap);
           c.translate(-getScrollX(), -getScrollY());
           draw(c);
