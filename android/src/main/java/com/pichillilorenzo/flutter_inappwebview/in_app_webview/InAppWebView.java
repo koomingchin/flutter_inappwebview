@@ -169,6 +169,9 @@ final public class InAppWebView extends InputAwareWebView implements InAppWebVie
                       @Nullable Map<String, Object> contextMenu, View containerView,
                       List<UserScript> userScripts) {
     super(context, containerView, options.useHybridComposition);
+    
+    
+    enableSlowWholeDocumentDraw();
     this.plugin = plugin;
     this.channel = channel;
     this.id = id;
