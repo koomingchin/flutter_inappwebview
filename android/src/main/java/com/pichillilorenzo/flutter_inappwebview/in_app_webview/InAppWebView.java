@@ -190,6 +190,7 @@ final public class InAppWebView extends InputAwareWebView implements InAppWebVie
 
     inAppWebViewChromeClient = new InAppWebViewChromeClient(plugin, channel, inAppBrowserDelegate);
     setWebChromeClient(inAppWebViewChromeClient);
+    enableSlowWholeDocumentDraw();
 
     inAppWebViewClient = new InAppWebViewClient(channel, inAppBrowserDelegate);
     setWebViewClient(inAppWebViewClient);
