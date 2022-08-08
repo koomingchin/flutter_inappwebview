@@ -102,6 +102,7 @@ public class InAppBrowserActivity extends AppCompatActivity implements InAppBrow
     pullToRefreshLayout.options = pullToRefreshOptions;
     pullToRefreshLayout.prepare();
 
+    WebView.enableSlowWholeDocumentDraw();
     webView = findViewById(R.id.webView);
     webView.windowId = windowId;
     webView.inAppBrowserDelegate = this;
