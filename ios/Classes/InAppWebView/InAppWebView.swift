@@ -697,25 +697,10 @@ public class InAppWebView: WKWebView, UIScrollViewDelegate, WKUIDelegate, WKNavi
                 self.addConstraints(originalConstraints)
                 self.scrollView.contentOffset = originalScrollViewOffset
 
+                var imageData: Data? = nil
                 if let image = UIGraphicsGetImageFromCurrentImageContext() {
-                    var imageData: Data? = nil
                     if let screenshot = image {
-                        if let with = with {
-                            switch with["compressFormat"] as! String {
-                            case "JPEG":
-                                let quality = Float(with["quality"] as! Int) / 100
-                                imageData = screenshot.jpegData(compressionQuality: CGFloat(quality))
-                                break
-                            case "PNG":
-                                imageData = screenshot.pngData()
-                                break
-                            default:
-                                imageData = screenshot.pngData()
-                            }
-                        }
-                        else {
-                            imageData = screenshot.pngData()
-                        }
+                        imageData = screenshot.pngData()
                     }
                     completionHandler(imageData)
                 } else {
