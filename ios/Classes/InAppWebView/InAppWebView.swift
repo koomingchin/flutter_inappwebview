@@ -698,7 +698,26 @@ public class InAppWebView: WKWebView, UIScrollViewDelegate, WKUIDelegate, WKNavi
                 self.scrollView.contentOffset = originalScrollViewOffset
 
                 if let image = UIGraphicsGetImageFromCurrentImageContext() {
-                    completionHandler(image)
+                    var imageData: Data? = nil
+                    if let screenshot = image {
+                        if let with = with {
+                            switch with["compressFormat"] as! String {
+                            case "JPEG":
+                                let quality = Float(with["quality"] as! Int) / 100
+                                imageData = screenshot.jpegData(compressionQuality: CGFloat(quality))
+                                break
+                            case "PNG":
+                                imageData = screenshot.pngData()
+                                break
+                            default:
+                                imageData = screenshot.pngData()
+                            }
+                        }
+                        else {
+                            imageData = screenshot.pngData()
+                        }
+                    }
+                    completionHandler(imageData)
                 } else {
                     completionHandler(nil)
                 }
