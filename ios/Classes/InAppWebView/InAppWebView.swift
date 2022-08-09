@@ -667,7 +667,44 @@ public class InAppWebView: WKWebView, UIScrollViewDelegate, WKUIDelegate, WKNavi
                 snapshotConfiguration!.afterScreenUpdates = afterScreenUpdates
             }
         }
-        takeSnapshot(with: snapshotConfiguration, completionHandler: {(image, error) -> Void in
+        // save the original size to restore
+        let originalFrame = self.frame
+        let originalConstraints = self.constraints
+        let originalScrollViewOffset = self.scrollView.contentOffset
+
+        let newSize = self.scrollView.contentSize
+
+        // remove any constraints for the web view, and set the size
+        // to be size of the content size (will be restored later)
+        self.removeConstraints(originalConstraints)
+        self.translatesAutoresizingMaskIntoConstraints = true
+        self.frame = CGRect(origin: .zero, size: newSize)
+        self.scrollView.contentOffset = .zero
+
+        // wait for a while for the webview to render in the newly set frame
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+            defer {
+                UIGraphicsEndImageContext()
+            }
+            UIGraphicsBeginImageContextWithOptions(newSize, false, 0)
+            if let context = UIGraphicsGetCurrentContext() {
+                // render the scroll view's layer
+                self.scrollView.layer.render(in: context)
+
+                // restore the original state
+                self.frame = originalFrame
+                self.translatesAutoresizingMaskIntoConstraints = false
+                self.addConstraints(originalConstraints)
+                self.scrollView.contentOffset = originalScrollViewOffset
+
+                if let image = UIGraphicsGetImageFromCurrentImageContext() {
+                    completionHandler(image)
+                } else {
+                    completionHandler(nil)
+                }
+            }
+        }
+        /*takeSnapshot(with: snapshotConfiguration, completionHandler: {(image, error) -> Void in
             var imageData: Data? = nil
             if let screenshot = image {
                 if let with = with {
@@ -688,7 +725,7 @@ public class InAppWebView: WKWebView, UIScrollViewDelegate, WKUIDelegate, WKNavi
                 }
             }
             completionHandler(imageData)
-        })
+        })*/
     }
     
     @available(iOS 14.0, *)
